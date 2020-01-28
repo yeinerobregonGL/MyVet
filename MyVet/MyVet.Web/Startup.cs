@@ -73,8 +73,7 @@ namespace MyVet.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseCookiePolicy();
 

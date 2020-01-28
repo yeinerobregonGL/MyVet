@@ -20,10 +20,13 @@ namespace MyVet.Web.Controllers
         }
 
         // GET: Owners
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Owners.ToListAsync());
+            return View(_context.Owners
+                .Include(o => o.User)
+                .Include(o => o.Pets));
         }
+
 
         // GET: Owners/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,7 +37,9 @@ namespace MyVet.Web.Controllers
             }
 
             var owner = await _context.Owners
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(o => o.User)
+                .Include(o => o.Pets)
+                .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (owner == null)
             {
                 return NotFound();
@@ -42,6 +47,7 @@ namespace MyVet.Web.Controllers
 
             return View(owner);
         }
+
 
         // GET: Owners/Create
         public IActionResult Create()

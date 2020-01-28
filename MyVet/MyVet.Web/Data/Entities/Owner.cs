@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyVet.Web.Data.Entities
 {
+    [Authorize( Roles ="Admin")]
     public class Owner
     {
         public int Id { get; set; }
@@ -12,8 +11,5 @@ namespace MyVet.Web.Data.Entities
         public User User { get; set; }
 
         public ICollection<Pet> Pets { get; set; }
-
-        public ICollection<Agenda> Agendas { get; set; }
     }
-
 }
